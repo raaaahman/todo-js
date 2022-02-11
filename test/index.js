@@ -1,6 +1,13 @@
-describe('La fonction "todos"', () => {
+describe('La fonction "getTodos"', () => {
     it('Est déclarée', () => {
-        expect(todos).toBeDefined()
-        expect(todos).toBeInstanceOf(Function)
+        expect(getTodos).toBeDefined()
+        expect(getTodos).toBeInstanceOf(Function)
+    })
+
+    it('Retourne un tableau', () => {
+        const value = getTodos()
+
+        expect(value).toBeDefined()
+        expect(value).toBeInstanceOf(Array)
     })
 })
