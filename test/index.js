@@ -192,6 +192,7 @@ describe('La fonction "addTodo"', () => {
         }
         addTodo(newTodo)
 
+        expect(myTodos).toContain(jasmine.arrayContaining(formerTodos))
         expect(myTodos).toContain(jasmine.objectContaining(newTodo))
     })
     
