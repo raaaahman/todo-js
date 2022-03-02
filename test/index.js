@@ -24,7 +24,7 @@ describe('Le tableau "myTodos"', () => {
     it('cet objet a une propriété "id" qui est un nombre', () => {
         const todo = myTodos[0]
 
-        expect(todo).toEqual(jasmine.objectContaining({ id: 1 }))
+        expect(todo).toEqual(jasmine.objectContaining({ id: jasmine.any(Number) }))
     })
 
     it('cet objet a une propriété "label" qui est une chaîne de caractère', () => {
