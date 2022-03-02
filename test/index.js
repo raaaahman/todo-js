@@ -225,21 +225,43 @@ describe('La fonction "addTodo"', () => {
 
 describe('La fonction "getTodoById"', () => {
     it('retourne l\'élément du tableau "myTodos" dont la propriété "id" correspond au nombre passé en paramètre', () => {
-        const todo = {
+        const todo5 = {
             id: 5,
             label: 'Hello World!',
             complete: false,
-            creationDate: new Date()
+            creationDate: new Date(2022, 02, 15)
         }
-        myTodos = [todo, {
+        const todo6 = {
             id: 6,
             label: 'How are you today?',
             complete: false,
-            creationDate: new Date()
-        }]
-        const value = getTodoById(5)
+            creationDate: new Date(2022, 03, 15)
+        }
+        const todo7 = {
+            id: 7,
+            label: 'Fine and you?',
+            complete: true,
+            creationDate: new Date(2022, 03, 07)
+        }
+        myTodos = [todo5, todo6, todo7]
+        const value = getTodoById(6)
                 
-        expect(value).toEqual(jasmine.objectContaining(todo))
+        expect(value).toEqual(jasmine.objectContaining(todo6))
+    })
+
+    it('retourne "undefined" s\'il n\'y a pas d\'élément dont la propriété "id" correspond au nombre passé en paramètre', () => {
+        myTodos = [
+            {
+                id: 7,
+                label: 'Hot day in sunny June',
+                complete: true,
+                creationDate: new Date(2022, 02, 07)
+            }
+        ]
+
+        const value = getTodoById(10)
+
+        expect(value).toBe(undefined)
     })
 })
 
