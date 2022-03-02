@@ -184,6 +184,8 @@ describe('La fonction "createTodos"', () => {
 
 describe('La fonction "addTodo"', () => {
     it('prend un objet en paramètre, et l\'ajoute au tableau "myTodos"', () => {
+        const formerTodos = myTodos.slice(0)
+
         const newTodo = {
             id: 4,
             label: 'How are you today?',
@@ -192,7 +194,7 @@ describe('La fonction "addTodo"', () => {
         }
         addTodo(newTodo)
 
-        expect(myTodos).toContain(jasmine.arrayContaining(formerTodos))
+        expect(myTodos).toEqual(jasmine.arrayContaining(formerTodos))
         expect(myTodos).toContain(jasmine.objectContaining(newTodo))
     })
     
@@ -220,7 +222,6 @@ describe('La fonction "addTodo"', () => {
             jasmine.objectContaining(newTodo)
         ]))
     })
-    
 })
 
 describe('La fonction "getTodoById"', () => {
@@ -244,6 +245,7 @@ describe('La fonction "getTodoById"', () => {
             creationDate: new Date(2022, 03, 07)
         }
         myTodos = [todo5, todo6, todo7]
+
         const value = getTodoById(6)
                 
         expect(value).toEqual(jasmine.objectContaining(todo6))
