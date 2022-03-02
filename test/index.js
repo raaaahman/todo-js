@@ -54,6 +54,16 @@ describe('La fonction "setTodos"', () => {
 
     it('Accepte un paramètre qui est un tableau', () => {
         expect(setTodos.length).toEqual(1)
+
+        // Ne doit pas retourner d'erreur
+        setTodos([
+            {
+                id: 1,
+                label:  'Finir le TP de Javascript',
+                complete: false,
+                date: new Date(2022, 02, 15)
+            }
+        ])
     })
 
     it('Remplace le tableau stocké dans "myTodos" par le tableau passé en paramètre', () => {
