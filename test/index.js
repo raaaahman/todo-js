@@ -66,17 +66,48 @@ describe('La fonction "setTodos"', () => {
         ])
     })
 
-    it('Remplace le tableau stocké dans "myTodos" par le tableau passé en paramètre', () => {
-        const newTodos = [{
-            id: 2,
-            label: 'Hello World!',
-            complete: false,
-            creationDate: new Date()
-        }]
-
-        setTodos(newTodos)
-
-        expect(myTodos).toEqual(jasmine.arrayWithExactContents(newTodos))
+    describe('Remplace le tableau stocké dans "myTodos" par le tableau passé en paramètre', () => {
+        it('Si le tableau passé en paramètre ne contient qu\'un seul élément, le tableau "myTodos" doit contenir le même élément', () => {
+            const newTodos = [{
+                id: 2,
+                label: 'Hello World!',
+                complete: false,
+                creationDate: new Date()
+            }]
+    
+            setTodos(newTodos)
+    
+            expect(myTodos).toEqual(jasmine.arrayWithExactContents(newTodos))
+        })
+    
+        it('Si le tableau passé en paramètre contient deux éléments, le tableau "myTodos" doit contenir les deux mêmes éléments', () => {
+            const newTodos = [
+                {
+                    id: 2,
+                    label: 'Hello World!',
+                    complete: false,
+                    creationDate: new Date(2022, 02, 15)
+                },
+                {
+                    id: 3,
+                    label: 'Bonjour monde!',
+                    complete: true,
+                    creationDate: new Date(2022, 02, 15)
+                }
+            ]
+    
+            setTodos(newTodos)
+    
+            expect(myTodos).toEqual(jasmine.arrayWithExactContents(newTodos))
+        })
+    
+        it('Si le tableau passé en paramètre ne contient pas d\'élément, le tableau "myTodos" doit être vide aussi', () => {
+            const newTodos = []
+    
+            setTodos(newTodos)
+    
+            expect(myTodos).toHaveSize(0)
+        })
     })
 })
 
