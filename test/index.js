@@ -119,29 +119,66 @@ describe('La fonction "createTodos"', () => {
         expect(value).toBeInstanceOf(Array)
     })
 
-    it('Le premier élément du tableau retourné correspond au tableau "myTodos"', () => {
-        const value = createTodos()
-
-        expect(value[0]).toEqual(jasmine.arrayWithExactContents(myTodos))
+    describe('Si l\'on ne passe pas de paramètre', () => {
+        it('Le premier élément du tableau retourné correspond au tableau "myTodos"', () => {
+            const value = createTodos()
+    
+            expect(value[0]).toEqual(jasmine.arrayWithExactContents(myTodos))
+        })
+    
+        it('Le second élément du tableau retourné correspond à la fonction "setTodos"', () => {
+            const value = createTodos()
+    
+            expect(value[1]).toEqual(setTodos)
+        })
     })
 
-    it('Le second élément du tableau retourné correspond à la fonction "setTodos"', () => {
-        const value = createTodos()
+    describe('Si l\'on passe un tableau en paramètre à la fonction "createTodos"', () => {
+        it('Le premier élément retourné est un tableau qui contient les mêmes éléments que le tableau passé en paramètre', () => {
+            const newTodos = [{
+                id: 3,
+                label: 'Hello World!',
+                complete: false,
+                creationDate: new Date(2022, 02, 15)
+            }]
+    
+            const value = createTodos(newTodos)
+    
+            expect(value[0]).toEqual(jasmine.arrayWithExactContents(newTodos))
+        })
 
-        expect(value[1]).toEqual(setTodos)
-    })
+        it('le second élément du tableau retourné est une fonction qui permet de modifier le premier élément retourné (le tableau contenant des todos)', () => {
+            const newTodos = [
+                {
+                    id: 4,
+                    label: 'Bonjour tout le monde',
+                    complete: true,
+                    creationDate: new Date(2022, 03, 07)
+                }
+            ]
 
-    it('Si l\'on passe un tableau en paramètre à la fonction "createTodos", ce tableau remplace les éléments contenus dans le tableau "myTodos"', () => {
-        const newTodos = [{
-            id: 3,
-            label: 'Hello World!',
-            complete: false,
-            creationDate: new Date()
-        }]
+            const [ todoArr, setTodoArr ] = createTodos(newTodos)
 
-        const value = createTodos(newTodos)
+            expect(setTodoArr).toBeInstanceOf(Function)
 
-        expect(value[0]).toEqual(jasmine.arrayWithExactContents(newTodos))
+            const modifiedTodos = [
+                {
+                    id: 5,
+                    label: 'Comment ça va aujourd\'hui?',
+                    complete: false,
+                    creationDate: new Date(2022, 03, 14)
+                },
+                {
+                    id: 6,
+                    label: 'Wassup?',
+                    complete: false,
+                    creationDate: new Date(2022, 04, 08)
+                }
+            ]
+            setTodoArr(modifiedTodos)
+
+            expect(todoArr).toEqual(jasmine.arrayWithExactContents(modifiedTodos))
+        })
     })
 })
 
