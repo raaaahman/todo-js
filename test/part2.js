@@ -44,7 +44,7 @@ describe('La fonction "getTodo42"', () => {
         originalTodos = myTodos
     })
     
-    it('retourne undefined si aucun objet n\'a une propriété "id" dont la valeur est 42', () => {
+    it('retourne undefined si aucun objet dans le tableau "myTodos" n\'a une propriété "id" dont la valeur est 42', () => {
         myTodos = [
             {
                 id: 0,
@@ -95,7 +95,7 @@ describe('La fonction "findByNumber"', () => {
         expect(result).toBeInstanceOf(Function)
     })
 
-    it('si l\'on passe le nombre 42 en paramètre, la fonction retournée a le même comportement que "isNumber42"', () => {
+    it('si l\'on passe le nombre 42 en paramètre, la fonction retournée est "isNumber42"', () => {
         const todo0 = {
             id: 0
         }
@@ -109,22 +109,41 @@ describe('La fonction "findByNumber"', () => {
         expect(result(todo42)).toBe(true)
     })
 
-    it('si l\'on passe le nombre 3 en paramètre, la fonction retournée retourne true si elle', () => {
-        const todo0 = {
-            id: 0
-        }
-        const todo1 = {
-            id: 3
-        }
-        const todo2 = {
-            label: 'Hello World'
-        }
-        
-        const result = findByNumber(42)
+    describe('si l\'on passe le nombre 3 en paramètre, la fonction retournée', () => {
+        it('retourne false si on lui passe un objet dont la propriété "id" ne vaut pas 3', () => {
+            const todo0 = {
+                id: 0
+            }
+            const todo1 = {
+                id: 3
+            }
+            const todo2 = {
+                label: 'Hello World'
+            }
+            
+            const result = findByNumber(3)
+    
+            expect(result(todo0)).toBe(false)
+        })
 
-        expect(result(todo0)).toBe(false)
-        expect(result(todo42)).toBe(true)
+        it('retourne true si on lui passe un objet dont la propriété "id" ne vaut 3', () => {
+            const todo0 = {
+                id: 0
+            }
+            const todo1 = {
+                id: 3
+            }
+            const todo2 = {
+                label: 'Hello World'
+            }
+            
+            const result = findByNumber(3)
+    
+            expect(result(todo1)).toBe(true)
+        })
     })
+
+   
 })
 
 describe('La fonction "getTodoById"', () => {
