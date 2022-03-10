@@ -40,10 +40,13 @@ describe('Le tableau "myTodos"', () => {
             complete: jasmine.any(Boolean),
             creationDate: jasmine.any(Date)
         }
+        
         expect(myTodos).toHaveSize(3)
         expect(myTodos[0]).toEqual(jasmine.objectContaining(sampleProperties))
         expect(myTodos[1]).toEqual(jasmine.objectContaining(sampleProperties))
+        expect(myTodos[0]).not.toBe(myTodos[1])
         expect(myTodos[2]).toEqual(jasmine.objectContaining(sampleProperties))
+        expect(myTodos[1]).not.toBe(myTodos[2])
     })
 })
 
@@ -210,21 +213,34 @@ describe('La fonction "addTodo"', () => {
 
 describe('La fonction "removeTodo"', () => {
     it('enlève l\'élément du tableau "myTodos" dont la propriété "id" correspond au nombre passé en paramètre ', () => {
-        const todo = {
+        const todo5 = {
+            id: 5,
+            label: 'Don\'t remove me',
+            complete: false,
+            creationDate: new Date(2022, 3, 4)
+        }
+
+        const todo6 = {
             id: 6,
             label: 'Hello World!',
             complete: false,
             creationDate: new Date()
         }
-        myTodos = [todo, {
+        
+        const todo7 = {
             id: 7,
             label: 'How are you today?',
             complete: false,
             creationDate: new Date()
-        }]
+        }
+
+        myTodos = [ todo5, todo6, todo7 ]
+
         removeTodo(6)
 
-        expect(myTodos).not.toContain(jasmine.objectContaining(todo))
+        expect(myTodos).toContain(todo5)
+        expect(myTodos).not.toContain(todo6)
+        expect(myTodos).toContain(todo7)
     })
 
     it('ne modifie pas directement le tableau "myTodos", mais appelle la fonction "setTodos" en lui passant un nouveau tableau en paramètre', () => {
@@ -287,6 +303,8 @@ describe('La fonction "createTodos" retourne un tableau', () => {
             complete: false,
             creationDate: new Date(2022, 02, 14)
         }])
+
+        expect(value[1]).toEqual(setTodos)
     })
 
     afterEach(() => {
